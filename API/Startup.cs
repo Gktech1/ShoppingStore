@@ -18,6 +18,7 @@ namespace API
         public void ConfigureServices(IServiceCollection services)    
         {
             services.AddControllers();
+            services.AddCors(); 
             services.AddSwaggerGen();
             services.AddDbContext<StoreContext>(options =>
            
@@ -36,6 +37,10 @@ namespace API
             //app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors(x => 
+            {
+                x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
+            });
 
             app.UseAuthorization();
 

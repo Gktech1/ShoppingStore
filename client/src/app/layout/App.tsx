@@ -9,7 +9,10 @@ const [darkMode, setDarkMode] = useState(false);
 const PaletteType = darkMode ? "dark" : "light";
  const theme = createTheme({ 
   palette: { 
-  mode: PaletteType
+  mode: PaletteType,
+  background: {
+    default: PaletteType === "light" ? "#eaeaea" : '#121212',
+  }
 } 
 }) 
 
