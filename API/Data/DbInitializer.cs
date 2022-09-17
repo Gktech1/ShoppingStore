@@ -208,12 +208,12 @@ namespace API.Data
                 },
             };
 
-            // foreach (var product in products)
-            // {
-            //     context.Products.Add(product);
-            // }
+            foreach (var product in products)
+            {
+                context.Products.Add(product);
+            }
 
-            // context.SaveChanges();
+            context.SaveChanges();
         }
     }
 }

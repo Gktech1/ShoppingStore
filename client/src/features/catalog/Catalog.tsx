@@ -1,18 +1,20 @@
 
 import { useState, useEffect } from "react";
+import agent from "../../app/api/agent";
+import LoadingComponent from "../../app/layout/LoadingComponent";
 import { Product } from "../../app/layout/models/Product";
 import ProductList from "./ProductList";
 
 
 export default function Catalog() { 
   const [products, setProducts] = useState<Product[]>([]);
+  const  [loading, setLoading] = useState(true);
   
   useEffect(() => {
-    fetch("https://localhost:5000/api/Products")
-      .then((response) => response.json())
-      .then((data) => setProducts(data));
+  agent.Catalog.list().then(products => setProducts(products))
+  .catch((error) => console.log(error))
+  .finally(() => setLoading(false));
   }, []);
-
 //   function addProduct() {
 //     // setProducts([...products, {name: 'Premiere Pro', price: '$299.99'}])
 //     setProducts((prevState) => [
@@ -28,10 +30,17 @@ export default function Catalog() {
 //       },
 //     ]);
 //   }
-    return (
+
+if(loading)  return <LoadingComponent message='loading products...'/>
+   
+ return (
     <>
-      <ProductList   products={products} />
+      <ProductList products={products} />
       {/* <Button variant="contained" onClick={addProduct}>Add Product</Button> */}
-    </>
+    </> 
     )
  }
+
+   // fetch("https://localhost:5000/api/Products")
+    //   .then((response) => response.json())
+    //   .then((data) => setProducts(data));
